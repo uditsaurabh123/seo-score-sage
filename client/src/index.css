@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(220, 30%, 97%);
+  --foreground: hsl(220, 15%, 15%);
+  --muted: hsla(220, 30%, 97%, 0.6);
+  --muted-foreground: hsl(220, 10%, 46%);
+  --popover: hsla(220, 30%, 100%, 0.9);
+  --popover-foreground: hsl(220, 15%, 15%);
+  --card: hsla(220, 30%, 100%, 0.25);
+  --card-foreground: hsl(220, 15%, 15%);
+  --border: hsla(220, 13%, 91%, 0.3);
+  --input: hsla(220, 13%, 91%, 0.4);
+  --primary: hsl(221, 83%, 53%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsla(220, 14%, 96%, 0.4);
+  --secondary-foreground: hsl(220, 9%, 15%);
+  --accent: hsla(220, 14%, 96%, 0.4);
+  --accent-foreground: hsl(220, 9%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(221, 83%, 53%);
+  --radius: 0.75rem;
+  
+  /* Glass morphism specific variables */
+  --glass-bg: hsla(220, 30%, 100%, 0.15);
+  --glass-border: hsla(220, 30%, 100%, 0.2);
+  --glass-shadow: hsla(220, 30%, 0%, 0.1);
+}
+
+.dark {
+  --background: hsl(224, 71%, 4%);
+  --foreground: hsl(213, 31%, 91%);
+  --muted: hsla(223, 47%, 11%, 0.6);
+  --muted-foreground: hsl(215, 16%, 57%);
+  --popover: hsla(224, 71%, 4%, 0.9);
+  --popover-foreground: hsl(213, 31%, 91%);
+  --card: hsla(223, 47%, 11%, 0.25);
+  --card-foreground: hsl(213, 31%, 91%);
+  --border: hsla(216, 34%, 17%, 0.3);
+  --input: hsla(216, 34%, 17%, 0.4);
+  --primary: hsl(210, 40%, 98%);
+  --primary-foreground: hsl(222, 84%, 5%);
+  --secondary: hsla(222, 47%, 11%, 0.4);
+  --secondary-foreground: hsl(213, 31%, 91%);
+  --accent: hsla(216, 34%, 17%, 0.4);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(216, 34%, 17%);
+  
+  /* Glass morphism specific variables for dark mode */
+  --glass-bg: hsla(223, 47%, 11%, 0.25);
+  --glass-border: hsla(216, 34%, 17%, 0.3);
+  --glass-shadow: hsla(0, 0%, 0%, 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground;
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Glass morphism background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(221, 83%, 53%) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(270, 50%, 60%) 0%, transparent 50%);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+      0 8px 32px var(--glass-shadow),
+      inset 0 1px 0 hsla(220, 30%, 100%, 0.1);
+  }
+  
+  .glass-strong {
+    background: hsla(220, 30%, 100%, 0.3);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid hsla(220, 30%, 100%, 0.3);
+    box-shadow: 
+      0 12px 40px var(--glass-shadow),
+      inset 0 1px 0 hsla(220, 30%, 100%, 0.2);
+  }
+  
+  .dark .glass-strong {
+    background: hsla(223, 47%, 11%, 0.4);
+    border: 1px solid hsla(216, 34%, 17%, 0.4);
+  }
+  
+  .glass-header {
+    background: hsla(220, 30%, 100%, 0.4);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 16px var(--glass-shadow);
+  }
+  
+  .dark .glass-header {
+    background: hsla(223, 47%, 11%, 0.6);
+  }
+}
