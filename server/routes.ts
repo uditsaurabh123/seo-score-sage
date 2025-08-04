@@ -56,7 +56,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const analysis = await storage.getSeoAnalysis(id);
-      
+
       if (!analysis) {
         return res.status(404).json({ error: "Analysis not found" });
       }
@@ -71,13 +71,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/analyses", async (req, res) => {
     try {
       const { url } = req.query;
-      
+
       if (!url || typeof url !== 'string') {
         return res.status(400).json({ error: "URL parameter is required" });
       }
 
       const analyses = await storage.getSeoAnalysesByUrl(url);
       res.json(analyses);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch analyses" });
+    }
+  });
+  app.get("/api/health", async (req, res) => {
+    try {
+      res.json({ status: "Health is fine for this app" });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch analyses" });
     }
